@@ -360,4 +360,4 @@ Join our [Discord](https://discord.gg/bittensor) for community support and discu
 
 ---
 
-**Disclaimer**: Tensorprox is an experimental DDoS mitigation network. Always conduct thorough testing in controlled environments.
+**Disclaimer**: Tensorprox is an experimental DDoS mitigation network. Always conduct thorough testing in controlled environments.# superprox
