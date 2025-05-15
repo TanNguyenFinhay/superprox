@@ -358,6 +358,7 @@ class Miner(BaseMinerNeuron):
             ip_header = struct.unpack('!BBHHHBBH4s4s', packet_data[0:20])
             protocol = ip_header[6]
             src_ip = socket.inet_ntoa(ip_header[8])
+            logger.info("Source IP: %s", src_ip)
             dest_ip = socket.inet_ntoa(ip_header[9])
 
             if protocol not in (6, 17):  # Only process TCP/UDP packets
