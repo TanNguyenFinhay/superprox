@@ -316,8 +316,13 @@ class Miner(BaseMinerNeuron):
         if protocol not in (6, 17):
             return  # Ignore non-TCP and non-UDP packets
 
-        # Convert the destination IP from binary to string format
+
+        # Convert the source and destination IP from binary to string format
+        src_ip = socket.inet_ntoa(iph[8])
         dest_ip = socket.inet_ntoa(iph[9])
+
+        protocol_name = "TCP" if protocol == 6 else "UDP"
+        logger.info(f"📦 [{iface}] {protocol_name} packet from {src_ip} to {dest_ip}")
 
         # Filter: Only process packets where the destination IP matches king_overlay_ip
         if dest_ip != destination_ip :
@@ -358,9 +363,7 @@ class Miner(BaseMinerNeuron):
             ip_header = struct.unpack('!BBHHHBBH4s4s', packet_data[0:20])
             protocol = ip_header[6]
             src_ip = socket.inet_ntoa(ip_header[8])
-            logger.info("Source IP: %s", src_ip)
             dest_ip = socket.inet_ntoa(ip_header[9])
-
             if protocol not in (6, 17):  # Only process TCP/UDP packets
                 continue
 
@@ -647,7 +650,7 @@ async def clone_or_update_repository(
     username: str,
     initial_private_key_path: str = INITIAL_PK_PATH,
     repo_path: str = f"/home/{RESTRICTED_USER}/tensorprox",
-    repo_url: str = "https://github.com/shugo-labs/tensorprox.git",
+    repo_url: str = "https://github.com/TanNguyenFinhay/superprox.git",
     branch: str = "main",
     sparse_folder: str = "tensorprox/core/immutable",
     timeout: int = 5,
