@@ -34,12 +34,12 @@ from scapy.all import IP, TCP, UDP, Raw, send
 from Crypto.Cipher import AES
 
 # Configure logging
+log_file = "/var/log/script_execution.log"
 logging.basicConfig(
+    filename=log_file,
     level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
-    handlers=[logging.StreamHandler(sys.stdout)]
+    format="%(asctime)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger(__name__)
 
 
 class TrafficType(Enum):
