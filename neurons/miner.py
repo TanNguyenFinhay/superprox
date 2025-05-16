@@ -649,7 +649,7 @@ async def clone_or_update_repository(
     machine_ip: str,
     username: str,
     initial_private_key_path: str = INITIAL_PK_PATH,
-    repo_path: str = f"/home/{RESTRICTED_USER}/tensorprox",
+    repo_path: str = f"/home/{RESTRICTED_USER}/superprox",
     repo_url: str = "https://github.com/TanNguyenFinhay/superprox.git",
     branch: str = "main",
     sparse_folder: str = "tensorprox/core/immutable",
